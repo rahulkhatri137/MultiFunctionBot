@@ -14,7 +14,7 @@ next_page_token = ""
 def index_scraper(payload, url):
     global next_page
     global next_page_token
-    url = url + "/" if url[-1] != "/" else url
+    url = f"{url}/" if url[-1] != "/" else url
     client = cloudscraper.create_scraper(allow_brotli=False)
     resp = client.post(url, data=payload)
     time.sleep(1)
@@ -30,18 +30,14 @@ def index_scraper(payload, url):
     else:
         next_page = True
         next_page_token = page_token
-    res = ""
-    if list(resp2.get("data").keys())[0] == "error":
-        pass
-    else:
+    if list(resp2.get("data").keys())[0] != "error":
         file_len = len(resp2["data"]["files"])
         time.sleep(1)
+        res = ""
         for i, _ in enumerate(range(file_len)):
             file_type = resp2["data"]["files"][i]["mimeType"]
-            file_name = resp2["data"]["files"][i]["name"]
-            if file_type == "application/vnd.google-apps.folder":
-                pass
-            else:
+            if file_type != "application/vnd.google-apps.folder":
+                file_name = resp2["data"]["files"][i]["name"]
                 ddl = url + urllib.parse.quote(file_name)
                 res += f"• <b>{file_name}</b>:-<br><code>{ddl}</code><br><br>"
         return res
@@ -69,10 +65,7 @@ def atishmkv_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def cinevez_scrap(url):
@@ -84,10 +77,7 @@ def cinevez_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def cinevood_scrap(url):
@@ -99,10 +89,7 @@ def cinevood_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def filecrypt_scrap(url):
@@ -114,10 +101,7 @@ def filecrypt_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def htpmovies_scrap(url):
@@ -129,10 +113,7 @@ def htpmovies_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def igggames_scrape(url):
@@ -144,10 +125,7 @@ def igggames_scrape(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def moviesdrama_scrap(url):
@@ -159,10 +137,7 @@ def moviesdrama_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def privatemoviez_scrape(url):
@@ -174,10 +149,7 @@ def privatemoviez_scrape(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def magnet_scrap(url):
@@ -189,10 +161,7 @@ def magnet_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def sharespark_scrap(url):
@@ -204,10 +173,7 @@ def sharespark_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def olamovies_scrap(url):
@@ -219,10 +185,7 @@ def olamovies_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def psa_scrap(url):
@@ -234,10 +197,7 @@ def psa_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def taemovies_scrap(url):
@@ -249,10 +209,7 @@ def taemovies_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def teleguflix_scrap(url):
@@ -264,10 +221,7 @@ def teleguflix_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def toonworld4all_scrap(url):
@@ -279,7 +233,4 @@ def toonworld4all_scrap(url):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]

@@ -30,10 +30,7 @@ def androiddatahost(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def anonfiles(url):
@@ -62,10 +59,7 @@ def artstation(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def bunkr_cyber(url):
@@ -96,7 +90,7 @@ def bunkr_cyber(url):
                 dl_msg += f"<b>{count}.</b> <code>{item_url}</code><br>"
                 count += 1
         fld_msg = f"Your provided {link_type} link is of Folder and I've Found {count - 1} files in the Folder."
-        fld_msg += f"I've generated Direct Links for all the files.<br><br>"
+        fld_msg += "I've generated Direct Links for all the files.<br><br>"
         return fld_msg + dl_msg
     except BaseException:
         return f"Could not Generate Direct Link for your {link_type} Link :("
@@ -140,10 +134,12 @@ def fichier(url):
         str_2 = soup.find_all("div", {"class": "ct_warn"})[-1]
         if "you must wait" in str(str_2).lower():
             numbers = [int(word) for word in str(str_2).split() if word.isdigit()]
-            if not numbers:
-                return "1fichier is on a limit. Please wait a few minutes/hour."
-            else:
-                return f"1fichier is on a limit. Please wait {numbers[0]} minute."
+            return (
+                f"1fichier is on a limit. Please wait {numbers[0]} minute."
+                if numbers
+                else "1fichier is on a limit. Please wait a few minutes/hour."
+            )
+
         elif "protect access" in str(str_2).lower():
             return f"This link requires a password!\n\n<b>This link requires a password!</b>"
         else:
@@ -154,10 +150,12 @@ def fichier(url):
         str_3 = soup.find_all("div", {"class": "ct_warn"})[-1]
         if "you must wait" in str(str_1).lower():
             numbers = [int(word) for word in str(str_1).split() if word.isdigit()]
-            if not numbers:
-                return "1fichier is on a limit. Please wait a few minutes/hour."
-            else:
-                return f"1fichier is on a limit. Please wait {numbers[0]} minute."
+            return (
+                f"1fichier is on a limit. Please wait {numbers[0]} minute."
+                if numbers
+                else "1fichier is on a limit. Please wait a few minutes/hour."
+            )
+
         elif "bad password" in str(str_3).lower():
             return "The password you entered is wrong!"
         else:
@@ -185,10 +183,7 @@ def github(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def gdbot(url):
@@ -203,10 +198,7 @@ def gdbot(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def gofile(url):
@@ -221,10 +213,7 @@ def gofile(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def hubcloud(url):
@@ -263,7 +252,7 @@ def hubcloud(url):
     pattern3 = re.compile(r"\bhttps?://.*(hashhackers)\S+", re.IGNORECASE)
     if pattern1.match(flink):
         sleep(4)
-        final_msg = wd.find_element(By.XPATH, workers).get_attribute("href")
+        return wd.find_element(By.XPATH, workers).get_attribute("href")
     elif pattern2.match(flink) or pattern3.match(flink):
         WebDriverWait(wd, 20).until(
             ec.element_to_be_clickable((By.XPATH, btnshow))
@@ -287,10 +276,9 @@ def hubcloud(url):
             wd.switch_to.window(Itab)
         except IndexError:
             wd.switch_to.window(IItab)
-        final_msg = wd.find_element(By.XPATH, workers).get_attribute("href")
+        return wd.find_element(By.XPATH, workers).get_attribute("href")
     else:
-        final_msg = "Could not any matching Links to Bypass from the Link!"
-    return final_msg
+        return "Could not any matching Links to Bypass from the Link!"
 
 
 def hxfile(url):
@@ -312,10 +300,7 @@ def krakenfiles(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def letsupload(url):
@@ -344,10 +329,7 @@ def mdisk(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def mdisk_mpd(url):
@@ -362,10 +344,7 @@ def mdisk_mpd(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def mediafire(url):
@@ -380,10 +359,7 @@ def mediafire(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def megaup(url):
@@ -398,10 +374,7 @@ def megaup(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def mirrored(url):
@@ -423,10 +396,7 @@ def osdn(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def pandafile(url):
@@ -441,10 +411,7 @@ def pandafile(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def pixeldrain(url):
@@ -459,10 +426,7 @@ def pixeldrain(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def pixl(url):
@@ -470,7 +434,6 @@ def pixl(url):
     if resp.status_code == 404:
         return "File not found/The link you entered is wrong!"
     try:
-        currentpage = 1
         settotalimgs = True
         totalimages = ""
         soup = BeautifulSoup(resp.content, "html.parser")
@@ -487,7 +450,7 @@ def pixl(url):
         ddl_msg = ""
         for ref in thmbnailanchors:
             imgdata = requests.get(ref.attrs["href"])
-            if not imgdata.status_code == 200:
+            if imgdata.status_code != 200:
                 sleep(3)
                 continue
             imghtml = BeautifulSoup(imgdata.text, "html.parser")
@@ -495,9 +458,9 @@ def pixl(url):
             currentimg = downloadanch.attrs["href"]
             ddl_msg += f"<b>{count}.</b> <code>{currentimg}</code><br>"
             count += 1
-        currentpage += 1
+        currentpage = 1 + 1
         fld_msg = f"Your provided Pixl.is link is of Folder and I've Found {count - 1} files in the folder.<br>"
-        fld_msg += f"I've generated Direct Links for all the files.<br><br>"
+        fld_msg += "I've generated Direct Links for all the files.<br><br>"
         return fld_msg + ddl_msg
     except BaseException:
         return "Could not Generate Direct Link for your Pixl.is Link :("
@@ -531,8 +494,7 @@ def sendcm(url):
         "Content-Type": "application/x-www-form-urlencoded",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
     }
-    is_sendcm_folder = is_sendcm_folder_link(url)
-    if is_sendcm_folder:
+    if is_sendcm_folder := is_sendcm_folder_link(url):
         done = False
         msg = ""
         page_no = 0
@@ -596,10 +558,7 @@ def solidfiles(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def sfile(url):
@@ -614,10 +573,7 @@ def sfile(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def sourceforge(url):
@@ -632,14 +588,11 @@ def sourceforge(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def sourceforge2(url):
-    return f"{url}" + "?viasf=1"
+    return f"{url}?viasf=1"
 
 
 def streamlare(url):
@@ -654,10 +607,7 @@ def streamlare(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def streamtape(url):
@@ -679,10 +629,7 @@ def uploadee(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def uptobox(url):
@@ -752,10 +699,7 @@ def wetransfer(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def yandex_disk(url):
@@ -770,10 +714,7 @@ def yandex_disk(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def zippyshare(url):

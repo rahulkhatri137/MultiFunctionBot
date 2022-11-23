@@ -16,10 +16,7 @@ def bitly(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def dagd(url):
@@ -34,10 +31,7 @@ def dagd(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def tinyurl(url):
@@ -52,10 +46,7 @@ def tinyurl(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def osdb(url):
@@ -70,10 +61,7 @@ def osdb(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def ttm(url):
@@ -88,10 +76,7 @@ def ttm(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def isgd(url):
@@ -106,10 +91,7 @@ def isgd(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def vgd(url):
@@ -124,10 +106,7 @@ def vgd(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def clickru(url):
@@ -142,10 +121,7 @@ def clickru(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def clilp(url):
@@ -160,7 +136,4 @@ def clilp(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]

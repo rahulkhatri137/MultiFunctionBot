@@ -12,7 +12,4 @@ def telegraph_paste(res):
         res = resp.json()
     except BaseException:
         return "API UnResponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
