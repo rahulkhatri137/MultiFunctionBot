@@ -43,17 +43,16 @@ async def direct(_, message: Message):
             )
         url = reply_text.strip()
         cmd = msg_args[0]
-    elif msg_args.count == (0 or 1) or reply_to is None:
+    else:
         return "Bot could not retrieve your Input!"
 
-    if url is not None:
-        if url.startswith("http://"):
-            url = url.replace("http://", "https://")
-        elif not url.startswith("https://"):
-            url = "https://" + url
-    else:
+    if url is None:
         return "Bot could not retrieve your URL!"
 
+    if url.startswith("http://"):
+        url = url.replace("http://", "https://")
+    elif not url.startswith("https://"):
+        url = f"https://{url}"
     valid_url = is_a_url(url)
     if valid_url is not True:
         return "You did not seem to have entered a valid URL!"
@@ -196,8 +195,7 @@ async def direct(_, message: Message):
         res = direct_link.pixl(url)
         res = telegraph_paste(res)
     elif "send.cm" in url:
-        is_sendcm_folder = is_sendcm_folder_link(url)
-        if is_sendcm_folder:
+        if is_sendcm_folder := is_sendcm_folder_link(url):
             link_type = "Sendcm Folder"
             res = direct_link.sendcm(url)
             res = telegraph_paste(res)
@@ -231,7 +229,7 @@ async def direct(_, message: Message):
     time_taken = get_readable_time(time() - start)
     LOGGER(__name__).info(f" Destination : {cmd} - {res}")
     if link_type == "GoFile":
-        xyz = f"<b><i>Sorry! GoFile Bypass is not supported anymore</i></b>"
+        xyz = "<b><i>Sorry! GoFile Bypass is not supported anymore</i></b>"
     elif link_type == "MDisk":
         xyz = f"<b><i>Download Link: {res}\n MPD Link: {res2}</i></b>\n\n<i>Time Taken : {time_taken}</i>"
     elif link_type == "MegaUp":
@@ -239,12 +237,7 @@ async def direct(_, message: Message):
             f"<b>Dear</b> {uname} (ID: {uid}),\n\n<b><i>Your Direct-Download Link is :</i></b>\n<code>{res}</code>\n\n"
             f"<b><u>NOTE : </u></b>\n<i>MegaUp has Cloudflare Protection Enabled.So Do not use this Link in Mirror Bots.Use it from your Device and downloading will start.</i>"
         )
-    elif (
-        link_type == "Bunkr.is"
-        or link_type == "CyberDrop"
-        or link_type == "Pixl.is"
-        or link_type == "Sendcm Folder"
-    ):
+    elif link_type in ["Bunkr.is", "CyberDrop", "Pixl.is", "Sendcm Folder"]:
         xyz = f"<b>Dear</b> {uname} (ID: {uid}),\n\n<b><i>Your Telegraph URL (containing Result) is :\n</i></b>{res}\n\n<i>Time Taken : {time_taken}</i>"
     else:
         xyz = f"<b>Dear</b> {uname} (ID: {uid}),\n\n<b><i>Your Direct-Download Link is :\n</i></b>{res}\n\n<i>Time Taken : {time_taken}</i>"

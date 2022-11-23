@@ -70,12 +70,11 @@ def get_readable_bytes(value, digits=2, delim="", postfix=""):
         return None
     chosen_unit = "B"
     for unit in ("KiB", "MiB", "GiB", "TiB"):
-        if value > 1000:
-            value /= 1024
-            chosen_unit = unit
-        else:
+        if value <= 1000:
             break
-    return f"{value:.{digits}f}" + delim + chosen_unit + postfix
+        value /= 1024
+        chosen_unit = unit
+    return f"{value:.{digits}f}{delim}{chosen_unit}{postfix}"
 
 
 def get_readable_size(size):
@@ -88,14 +87,12 @@ def get_readable_size(size):
     while size > power:
         size /= power
         raised_to_pow += 1
-    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+    return f"{str(round(size, 2))} {dict_power_n[raised_to_pow]}B"
 
 
 def multi_api():
-    EMILY_API_LIST = []
     emilyapi_urls = EMILY_API_URL.split(" ")
-    for api in emilyapi_urls:
-        EMILY_API_LIST.append(str(api))
+    EMILY_API_LIST = [str(api) for api in emilyapi_urls]
     return random.choice(EMILY_API_LIST)
 
 

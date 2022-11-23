@@ -42,17 +42,16 @@ async def bypass(_, message: Message):
             )
         url = reply_text.strip()
         cmd = msg_args[0]
-    elif msg_args.count == (0 or 1) or reply_to is None:
+    else:
         return "Bot could not retrieve your Input!"
 
-    if url is not None:
-        if url.startswith("http://"):
-            url = url.replace("http://", "https://")
-        elif not url.startswith("https://"):
-            url = "https://" + url
-    else:
+    if url is None:
         return "Bot could not retrieve your URL!"
 
+    if url.startswith("http://"):
+        url = url.replace("http://", "https://")
+    elif not url.startswith("https://"):
+        url = f"https://{url}"
     valid_url = is_a_url(url)
     if valid_url is not True:
         return "You did not seem to have entered a valid URL!"
@@ -114,9 +113,6 @@ async def bypass(_, message: Message):
         url = url.replace("&m=1", "")
         link_type = "GTLinks"
         res = bypasser.gtlinks(url)
-    elif "gyanilinks." in url:
-        link_type = "GyaniLinks"
-        res = bypasser.gyanilinks(url)
     elif "shareus." in url:
         link_type = "Shareus"
         res = bypasser.shareus(url)

@@ -26,23 +26,16 @@ def gdtot(url: str) -> str:
     res = client.get(url)
     res = client.get(f"https://{match[0]}.gdtot.{match[1]}/dld?id={url.split('/')[-1]}")
     url = re.findall(r'URL=(.*?)"', res.text)[0]
-    info = {}
-    info["error"] = False
+    info = {"error": False}
     params = parse_qs(urlparse(url).query)
     if "gd" not in params or not params["gd"] or params["gd"][0] == "false":
         info["error"] = True
-        if "msgx" in params:
-            info["message"] = params["msgx"][0]
-        else:
-            info["message"] = "Invalid link"
+        info["message"] = params["msgx"][0] if "msgx" in params else "Invalid link"
     else:
         decoded_id = base64.b64decode(str(params["gd"][0])).decode("utf-8")
         drive_link = f"https://drive.google.com/open?id={decoded_id}"
         info["gdrive_link"] = drive_link
-    if not info["error"]:
-        return info["gdrive_link"]
-    else:
-        return f"{info['message']}"
+    return f"{info['message']}" if info["error"] else info["gdrive_link"]
 
 
 def unified(url: str) -> str:
@@ -80,9 +73,10 @@ def unified(url: str) -> str:
         while data["type"] <= 3:
             boundary = f'{"-" * 6}_'
             data_string = ""
-            for item in data:
+            for item, value in data.items():
                 data_string += f"{boundary}\r\n"
-                data_string += f'Content-Disposition: form-data; name="{item}"\r\n\r\n{data[item]}\r\n'
+                data_string += f'Content-Disposition: form-data; name="{item}"\r\n\r\n{value}\r\n'
+
             data_string += f"{boundary}--\r\n"
             gen_payload = data_string
             try:
@@ -102,8 +96,7 @@ def unified(url: str) -> str:
             return f"{info_parsed}"
         info_parsed["src_url"] = url
         if "appdrive." in urlparse(url).netloc:
-            flink = info_parsed["gdrive_link"]
-            return flink
+            return info_parsed["gdrive_link"]
         elif urlparse(url).netloc in (
             "driveapp.in",
             "drivehub.in",
@@ -116,18 +109,16 @@ def unified(url: str) -> str:
             "drivepro.in",
         ):
             res = client.get(info_parsed["gdrive_link"])
-            drive_link = etree.HTML(res.content).xpath(
+            return etree.HTML(res.content).xpath(
                 "//a[contains(@class,'btn')]/@href"
             )[0]
-            flink = drive_link
-            return flink
+
         else:
             res = client.get(info_parsed["gdrive_link"])
-            drive_link = etree.HTML(res.content).xpath(
+            return etree.HTML(res.content).xpath(
                 "//a[contains(@class,'btn btn-primary')]/@href"
             )[0]
-            flink = drive_link
-            return flink
+
     except Exception as err:
         return f"Encountered Error while parsing Link : {err}"
 
@@ -181,40 +172,30 @@ def udrive(url: str) -> str:
         return "File Not Found or User rate exceeded !!"
     if "drivefire." in url:
         gd_id = res.rsplit("/", 1)[-1]
-        flink = f"https://drive.google.com/file/d/{gd_id}"
-        return flink
-    elif "drivehub." in url:
+        return f"https://drive.google.com/file/d/{gd_id}"
+    elif "drivehub." in url or "drivebuzz." in url:
         gd_id = res.rsplit("=", 1)[-1]
-        flink = f"https://drive.google.com/open?id={gd_id}"
-        return flink
-    elif "drivebuzz." in url:
-        gd_id = res.rsplit("=", 1)[-1]
-        flink = f"https://drive.google.com/open?id={gd_id}"
-        return flink
+        return f"https://drive.google.com/open?id={gd_id}"
     else:
         try:
             gd_id = re.findall("gd=(.*)", res, re.DOTALL)[0]
         except BaseException:
             return "Unknown Error Occurred!"
-        flink = f"https://drive.google.com/open?id={gd_id}"
-        return flink
+        return f"https://drive.google.com/open?id={gd_id}"
 
 
 def parse_info(res, url):
-    info_parsed = {}
     if "drivebuzz." in url:
         info_chunks = re.findall('<td\salign="right">(.*?)<\/td>', res.text)
     elif "sharer.pw" in url:
         f = re.findall(">(.*?)<\/td>", res.text)
-        info_parsed = {}
-        for i in range(0, len(f), 3):
-            info_parsed[f[i].lower().replace(" ", "_")] = f[i + 2]
-        return info_parsed
+        return {f[i].lower().replace(" ", "_"): f[i + 2] for i in range(0, len(f), 3)}
     else:
         info_chunks = re.findall(">(.*?)<\/td>", res.text)
-    for i in range(0, len(info_chunks), 2):
-        info_parsed[info_chunks[i]] = info_chunks[i + 1]
-    return info_parsed
+    return {
+        info_chunks[i]: info_chunks[i + 1]
+        for i in range(0, len(info_chunks), 2)
+    }
 
 
 def sharerpw(url: str, forced_login=False) -> str:
@@ -246,7 +227,7 @@ def sharerpw(url: str, forced_login=False) -> str:
         if not forced_login:
             data["nl"] = 1
         try:
-            res = scraper.post(url + "/dl", headers=headers, data=data).json()
+            res = scraper.post(f"{url}/dl", headers=headers, data=data).json()
         except BaseException:
             return f"{info_parsed}"
         if "url" in res and res["url"]:
@@ -327,5 +308,4 @@ def pahe(url: str) -> str:
     wd.execute_script("arguments[0].click();", last)
     flink = wd.current_url
     wd.close()
-    gd_url = gdtot(flink)
-    return gd_url
+    return gdtot(flink)

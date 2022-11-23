@@ -22,10 +22,7 @@ def adfly(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def adrinolinks(url):
@@ -40,10 +37,7 @@ def adrinolinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def bifm(url):
@@ -58,10 +52,7 @@ def bifm(url):
         query = response.json()
     except BaseException:
         return "Invalid Link"
-    if "destination" in query:
-        return query["destination"]
-    else:
-        return query["error"]
+    return query["destination"] if "destination" in query else query["error"]
 
 
 def droplink(url):
@@ -76,10 +67,7 @@ def droplink(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def dulink(url):
@@ -94,10 +82,7 @@ def dulink(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def ez4short(url):
@@ -112,10 +97,7 @@ def ez4short(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def gplinks(url):
@@ -130,10 +112,7 @@ def gplinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def gtlinks(url):
@@ -148,10 +127,7 @@ def gtlinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def gyanilinks(url):
@@ -166,10 +142,7 @@ def gyanilinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def htpmovies(url):
@@ -184,10 +157,7 @@ def htpmovies(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def hypershort(url):
@@ -202,10 +172,7 @@ def hypershort(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def krownlinks(url):
@@ -220,10 +187,7 @@ def krownlinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def linkvertise(url):
@@ -238,10 +202,7 @@ def linkvertise(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def multi_aio(url):
@@ -272,10 +233,7 @@ def multi_bypass(url):
             res = resp.json()
         except BaseException:
             return "Emily API Unresponsive!"
-        if res["success"] is True:
-            f_msg = res["url"]
-        else:
-            f_msg = res["msg"]
+        f_msg = res["url"] if res["success"] is True else res["msg"]
     return f_msg
 
 
@@ -291,10 +249,7 @@ def ouo(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def privatemoviez(url):
@@ -309,10 +264,7 @@ def privatemoviez(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 ANCHOR_URL = "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr"
@@ -346,10 +298,7 @@ def rocklinks(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def script(url):
@@ -364,9 +313,7 @@ def scripta(domain, url, client):
     res = client.get(url)
     soup = BeautifulSoup(res.text, "html.parser")
     soup = soup.find("form").findAll("input")
-    datalist = []
-    for ele in soup:
-        datalist.append(ele.get("value"))
+    datalist = [ele.get("value") for ele in soup]
     data = {
         "_method": datalist[0],
         "_csrfToken": datalist[1],
@@ -388,9 +335,8 @@ def scripta(domain, url, client):
         "Sec-Fetch-Site": "same-origin",
     }
     time.sleep(10)  # important
-    response = client.post(domain + "/links/go", data=data).json()
-    furl = response["url"]
-    return furl
+    response = client.post(f"{domain}/links/go", data=data).json()
+    return response["url"]
 
 
 def scriptb(url):
@@ -400,9 +346,7 @@ def scriptb(url):
     soup = soup.find("form")
     action = soup.get("action")
     soup = soup.findAll("input")
-    datalist = []
-    for ele in soup:
-        datalist.append(ele.get("value"))
+    datalist = [ele.get("value") for ele in soup]
     client.headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -442,10 +386,7 @@ def shareus(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def short2url(url):
@@ -460,10 +401,7 @@ def short2url(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def shorte(url):
@@ -478,10 +416,7 @@ def shorte(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def shortingly(url):
@@ -496,10 +431,7 @@ def shortingly(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def sirigan(url):
@@ -514,10 +446,7 @@ def sirigan(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def tnlink(url):
@@ -532,10 +461,7 @@ def tnlink(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
 
 
 def xpshort(url):
@@ -550,7 +476,4 @@ def xpshort(url):
         res = resp.json()
     except BaseException:
         return "Emily API Unresponsive / Invalid Link!"
-    if res["success"] is True:
-        return res["url"]
-    else:
-        return res["msg"]
+    return res["url"] if res["success"] is True else res["msg"]
